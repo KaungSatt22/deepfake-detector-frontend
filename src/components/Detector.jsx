@@ -159,7 +159,7 @@ const Detector = ({ onBack, dark }) => {
       formData.append("file", file);
 
       const response = await fetch(
-        `http://localhost:8000${currentTab.endpoint}`,
+        `${import.meta.env.VITE_API_URL}${currentTab.endpoint}`,
         {
           method: "POST",
           body: formData,

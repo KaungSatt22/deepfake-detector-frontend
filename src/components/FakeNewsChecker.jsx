@@ -52,14 +52,17 @@ export default function FakeNewsChecker({ dark }) {
     }, 800);
 
     try {
-      const response = await fetch("http://localhost:8000/analyze-fakenews", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          text: mode === "text" ? text : "",
-          url: mode === "url" ? url : "",
-        }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/analyze-fakenews`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            text: mode === "text" ? text : "",
+            url: mode === "url" ? url : "",
+          }),
+        },
+      );
 
       const data = await response.json();
       clearInterval(interval);
