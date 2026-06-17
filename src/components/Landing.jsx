@@ -96,7 +96,7 @@ const Landing = ({ onStart, dark }) => {
         className={`flex flex-wrap justify-center gap-8 px-8 py-12 ${bgAlt}`}
       >
         {[
-          { value: "4", label: "Detection Modes" },
+          { value: "5", label: "Detection Modes" },
           { value: "Free", label: "Always Free" },
           { value: "Fast", label: "Instant Results" },
           { value: "99%", label: "Accuracy Rate" },
@@ -147,6 +147,12 @@ const Landing = ({ onStart, dark }) => {
               title: "Metadata Analysis",
               desc: "Extract hidden EXIF data — camera info, GPS location, edit history, and software used.",
               color: "border-green-500",
+            },
+            {
+              icon: "📰",
+              title: "Fake News Detection",
+              desc: "Analyze news articles and URLs to detect misinformation, propaganda, and fake news using advanced AI.",
+              color: "border-red-500",
             },
           ].map((f, i) => (
             <motion.div
@@ -264,7 +270,6 @@ const Landing = ({ onStart, dark }) => {
       </motion.section>
 
       {/* CTA */}
-      {/* CTA */}
       <motion.section
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -289,6 +294,75 @@ const Landing = ({ onStart, dark }) => {
           className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-10 py-4 rounded-2xl transition text-lg"
         >
           Try It Now →
+        </motion.button>
+      </motion.section>
+      {/* Fake News Feature Highlight */}
+      <motion.section
+        variants={stagger}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+        className={`flex flex-col items-center px-6 py-20 gap-8 ${bg}`}
+      >
+        <motion.div variants={fadeUp} className="text-center max-w-2xl">
+          <span className="text-5xl">📰</span>
+          <h2
+            className={`text-3xl font-bold mt-4 ${dark ? "text-white" : "text-gray-900"}`}
+          >
+            Fight Fake News
+          </h2>
+          <p className="text-gray-400 mt-3 text-lg">
+            Paste any news article or URL — our AI analyzes credibility, detects
+            red flags, and gives you a verdict in seconds.
+          </p>
+        </motion.div>
+
+        <motion.div
+          variants={stagger}
+          className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-3xl"
+        >
+          {[
+            {
+              icon: "📝",
+              title: "Text Analysis",
+              desc: "Paste any news content directly",
+            },
+            {
+              icon: "🔗",
+              title: "URL Check",
+              desc: "Submit any news article link",
+            },
+            {
+              icon: "🖼️",
+              title: "Screenshot OCR",
+              desc: "Upload news screenshots",
+            },
+          ].map((f, i) => (
+            <motion.div
+              key={i}
+              variants={fadeUp}
+              whileHover={{ scale: 1.03 }}
+              className={`${dark ? "bg-gray-900" : "bg-gray-100"} rounded-2xl p-5 flex flex-col gap-2 text-center`}
+            >
+              <span className="text-3xl">{f.icon}</span>
+              <h3
+                className={`font-bold ${dark ? "text-white" : "text-gray-900"}`}
+              >
+                {f.title}
+              </h3>
+              <p className="text-gray-400 text-sm">{f.desc}</p>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        <motion.button
+          variants={fadeUp}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={onStart}
+          className="bg-red-600 hover:bg-red-700 text-white font-bold px-8 py-3 rounded-2xl transition"
+        >
+          Check News Now →
         </motion.button>
       </motion.section>
 

@@ -7,7 +7,8 @@ const ResultCard = ({ result, dark }) => {
     green: "text-green-400",
   };
 
-  const isSuspicious = result.is_fake || result.is_suspicious;
+  const isSuspicious =
+    result.is_fake || (result.is_suspicious && result.verdict !== "Clean");
   const subText = dark ? "text-gray-400" : "text-gray-500";
   const cardInfoBg = dark ? "bg-gray-800" : "bg-gray-100";
   const cardInfoText = dark ? "text-white" : "text-gray-900";
@@ -24,16 +25,16 @@ const ResultCard = ({ result, dark }) => {
           ["Authentic score", result.authentic_score],
         ]
       : result.manipulation_score !== undefined
-      ? [
-          ["Manipulation score", result.manipulation_score],
-          ["Authentic score", result.authentic_score],
-        ]
-      : result.fake_score !== undefined
         ? [
-            ["Fake score", result.fake_score],
-            ["Real score", result.real_score],
+            ["Manipulation score", result.manipulation_score],
+            ["Authentic score", result.authentic_score],
           ]
-        : [];
+        : result.fake_score !== undefined
+          ? [
+              ["Fake score", result.fake_score],
+              ["Real score", result.real_score],
+            ]
+          : [];
 
   return (
     <div
@@ -108,10 +109,15 @@ const ResultCard = ({ result, dark }) => {
 
             {result.ocr.fields &&
               Object.entries(result.ocr.fields)
-                .filter(([key, value]) => key !== "has_account_indicator" && value?.length)
+                .filter(
+                  ([key, value]) =>
+                    key !== "has_account_indicator" && value?.length,
+                )
                 .map(([key, value]) => (
                   <div key={key} className="flex gap-2 text-xs">
-                    <span className={`${metadataKey} min-w-24 shrink-0 capitalize`}>
+                    <span
+                      className={`${metadataKey} min-w-24 shrink-0 capitalize`}
+                    >
                       {key}
                     </span>
                     <span className={`${metadataVal} truncate`}>
